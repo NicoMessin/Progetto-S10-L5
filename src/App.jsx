@@ -1,31 +1,35 @@
 
-import './App.css'
+import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ResponsiveNavbar from './Components/Navbar';
 import SearchBar from './Components/Footer';
 import CityBlock from './Components/CityBlock';
+import { useState } from 'react';
+
 
 function App() {
- 
+
+  const [cities, setCities] = useState([
+    
+  ]);
+
+  const handleAddCity = (cityName) => {
+    if (!cities.includes(cityName)) {
+      setCities([...cities, cityName]); 
+    }
+  };
 
   return (
     <>
-     <ResponsiveNavbar/> 
+      <ResponsiveNavbar />
 
-      <CityBlock cityName="Milano" />
-      <CityBlock cityName="Roma" />
-      <CityBlock cityName="Napoli" />
-      <CityBlock cityName="Torino" />
-      <CityBlock cityName="Venezia" />
-      <CityBlock cityName="Genova" />
-      <CityBlock cityName="Firenze" />
-      <CityBlock cityName="Palermo" />
-   
-     
-     
-     <SearchBar/>
+      {cities.map((cityName) => (
+        <CityBlock key={cityName} cityName={cityName} />
+      ))}
+
+      <SearchBar onValidCity={handleAddCity} />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
